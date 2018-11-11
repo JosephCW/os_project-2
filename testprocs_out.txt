@@ -1,0 +1,70 @@
+Process A: arrive: 0 required: 8 time spent: 0 wait: 0
+Process B: arrive: 2 required: 5 time spent: 0 wait: 0
+Process C: arrive: 3 required: 1 time spent: 0 wait: 0
+Process D: arrive: 5 required: 1 time spent: 0 wait: 0
+Process E: arrive: 1 required: 9 time spent: 0 wait: 0
+
+===== RUNNING FCFS =====
+   == RUN GRAPH ==
+A |>B   B   B   B   B   B   B   B<                                                                 
+B |        >W   W   W   W   W   W   W   W   W   W   W   W   W   W   W   B   B   B   B   B<         
+C |            >W   W   W   W   W   W   W   W   W   W   W   W   W   W   W   W   W   W   W   B<     
+D |                    >W   W   W   W   W   W   W   W   W   W   W   W   W   W   W   W   W   W   B< 
+E |    >W   W   W   W   W   W   W   B   B   B   B   B   B   B   B   B<                             
+---------------------------------------------------------------------------------------------------
+  |000|001|002|003|004|005|006|007|008|009|010|011|012|013|014|015|016|017|018|019|020|021|022|023|
+-- Stats --
+  Avg. Response Time (Avg. Wait): 11.800000
+  Avg. Turnaround Time          : 16.600000
+
+===== RUNNING SJF =====
+   == RUN GRAPH ==
+A |>B   B   B   B   B   B   B   B<                                                                 
+B |        >W   W   W   W   W   W   W   W   B   B   B   B   B<                                     
+C |            >W   W   W   W   W   B<                                                             
+D |                    >W   W   W   W   B<                                                         
+E |    >W   W   W   W   W   W   W   W   W   W   W   W   W   W   B   B   B   B   B   B   B   B   B< 
+---------------------------------------------------------------------------------------------------
+  |000|001|002|003|004|005|006|007|008|009|010|011|012|013|014|015|016|017|018|019|020|021|022|023|
+-- Stats --
+  Avg. Response Time (Avg. Wait): 6.200000
+  Avg. Turnaround Time          : 11.000000
+
+===== RUNNING SRT =====
+   == RUN GRAPH ==
+A |>B   B   W   W   W   W   W   W   W   B   B   B   B   B   B<                                     
+B |        >B   W   B   W   B   B   B<                                                             
+C |            >B                                                                                  
+D |                    >B                                                                          
+E |    >W   W   W   W   W   W   W   W   W   W   W   W   W   W   B   B   B   B   B   B   B   B   B< 
+---------------------------------------------------------------------------------------------------
+  |000|001|002|003|004|005|006|007|008|009|010|011|012|013|014|015|016|017|018|019|020|021|022|023|
+-- Stats --
+  Avg. Response Time (Avg. Wait): 4.600000
+  Avg. Turnaround Time          : 9.400000
+
+===== RUNNING RR =====
+   == RUN GRAPH ==
+A |>B   W   B   W   W   W   B   W   W   W   B   W   W   B   W   W   B   W   W   B   W   B<         
+B |        >W   B   W   W   W   B   W   W   W   B   W   W   B   W   W   B<                         
+C |            >W   W   B<                                                                         
+D |                    >W   W   W   B<                                                             
+E |    >B   W   W   B   W   W   W   W   B   W   W   B   W   W   B   W   W   B   W   B   W   B   B< 
+---------------------------------------------------------------------------------------------------
+  |000|001|002|003|004|005|006|007|008|009|010|011|012|013|014|015|016|017|018|019|020|021|022|023|
+-- Stats --
+  Avg. Response Time (Avg. Wait): 8.800000
+  Avg. Turnaround Time          : 13.600000
+
+===== RUNNING RANDOM =====
+   == RUN GRAPH ==
+A |>B   W   B   W   W   W   W   W   W   B   B   W   W   W   B   B   W   W   W   B   W   W   W   B< 
+B |        >W   B   W   W   W   W   B   W   W   B   W   W   W   W   W   W   B   W   W   W   B<     
+C |            >W   W   B<                                                                         
+D |                    >W   B<                                                                     
+E |    >B   W   W   B   W   W   B   W   W   W   W   B   B   W   W   B   B   W   W   B   B<         
+---------------------------------------------------------------------------------------------------
+  |000|001|002|003|004|005|006|007|008|009|010|011|012|013|014|015|016|017|018|019|020|021|022|023|
+-- Stats --
+  Avg. Response Time (Avg. Wait): 9.400000
+  Avg. Turnaround Time          : 14.200000

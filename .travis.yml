@@ -1,0 +1,16 @@
+language: c
+
+before_install:
+        - sudo apt-get install -qq valgrind
+
+script:
+        - make test
+        - ./test
+        - valgrind ./test FCFStestprocs 2>& 1 | grep 'possible'
+        - valgrind ./test SJFtestprocs 2>& 1 | grep 'possible'
+        - valgrind ./test SRTtestprocs 2>& 1 | grep 'possible'
+        - valgrind ./test RRtestprocs 2>& 1 | grep 'possible'
+        - valgrind ./test FCFSaprocs 2>& 1 | grep 'possible'
+        - valgrind ./test SJFaprocs 2>& 1 | grep 'possible'
+        - valgrind ./test SRTaprocs 2>& 1 | grep 'possible'
+        - valgrind ./test RRaprocs 2>& 1 | grep 'possible'
