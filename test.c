@@ -20,6 +20,7 @@ void _test_sched(const char * fname, int (*sched) (proc_t *, int, int), const in
     for (int j=0; j<num_expected; j++)
     {
         int to_run = sched(procs, numprocs, j);
+	printf("Expected Result: %d\n", expected[j]);
         TEST_CHECK(to_run == expected[j]);
         for (int i=0; i<numprocs; i++)
         {
