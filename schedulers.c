@@ -1,4 +1,9 @@
-
+/**
+ * Joseph Watts
+ * Operating Systems Fall 2018
+ * This class will return the correct process to run
+ * based on several different schedueling algorithms
+*/
 
 #include "schedulers.h"
 
