@@ -12,42 +12,26 @@
 
 int fcfs(proc_t * procs, const int numprocs, const int ts)
 {
-  // Loop through all of the processes to see if one is running.
-    // If a process is already running
-      // it needs to continue running.
-  // Start the one that arrived first that doesn't have a status of completed
+  // Keep track of the earliest to arrive that
+  // hasn't completed. that will always be the
+  // process needing to be burned down. (run)
   int to_run = -1;
+  int earliest_starting_time = -1;
   for (int i = 0; i < numprocs; i++) {
-    if (running(&procs[i], ts)) {
-      printf("There is a process running on %d\n", i);
-      // There shouldn't be any instance where
-      // more than one is running at a time in FCFS.
-      to_run = i;
-    }
-  }
-  // If there are no currently running processes,
-  // return the first to arrive that isn't finished
-  // get the index of the first to arrive
-  // return that index.
-  /*int earliest_arrival_time = -1;
-  if (to_run == -1) {
-    printf("To run has a value of -1!");
-    for (int i = 0; i < numprocs; i++) {
-      // By default set it to the first process.
-      if (earliest_arrival_time == -1) {
-        earliest_arrival_time = (&procs[i])->m_arrive;
+    if (!isdone(&procs[i])) {
+      // If it's the first process it has the lowest time.
+      if (earliest_starting_time == -1) {
+        earliest_starting_time = (&procs[i])->m_arrive;
         to_run = i;
-      } else {
-        // If this process arrived earlier than the previous ones
-        // set it as the next process to run.
-        if ((&procs[i])->m_arrive < earliest_arrival_time) {
-          earliest_arrival_time = (&procs[i])->m_arrive;
-          to_run = i;
-        }
+      }
+      // see if the next has a lower starting time.
+      if ((&procs[i])->m_arrive < earliest_starting_time) {
+        earliest_starting_time = (&procs[i])->m_arrive;
+        to_run = i;
       }
     }
   }
-*/
+  
   return to_run;
 }
 

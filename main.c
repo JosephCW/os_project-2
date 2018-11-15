@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 
     // TODO: Uncomment these when you have implemented the scheduler policy
     
-    //run_scheduler(processes, numprocs, fcfs, "FCFS");
+    run_scheduler(processes, numprocs, fcfs, "FCFS");
     //run_scheduler(processes, numprocs, sjf, "SJF");
     //run_scheduler(processes, numprocs, srt, "SRT");
     //run_scheduler(processes, numprocs, rr, "RR");
