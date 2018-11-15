@@ -6,11 +6,46 @@
 */
 
 #include "schedulers.h"
+#include "proc.h"
 
 int fcfs(proc_t * procs, const int numprocs, const int ts)
 {
-    // TODO: Milestone 2
-	return 0;
+  // Loop through all of the processes to see if one is running.
+    // If a process is already running
+      // it needs to continue running.
+    // Else
+      // Start the one that arrived first that doesn't have a status of completed
+  int to_run = -1;
+  for (int i = 0; i < numprocs; i++) {
+    if (running(&procs[i], ts)) {
+      // There shouldn't be any instance where
+      // more than one is running at a time in FCFS.
+      to_run = i;
+    }
+  }
+  // If there are no currently running processes,
+  // return the first to arrive that isn't finished
+  // get the index of the first to arrive
+  // return that index.
+  int earliest_arrival_time = -1;
+  if (to_run == -1) {
+    for (int i = 0; i < numprocs; i++) {
+      // By default set it to the first process.
+      if (earliest_arrival_time == -1) {
+        earliest_arrival_time = (&procs[i])->m_arrive;
+        to_run = i;
+      } else {
+        // If this process arrived earlier than the previous ones
+        // set it as the next process to run.
+        if ((&procs[i])->m_arrive < earliest_arrival_time) {
+          earliest_arrival_time = (&procs[i])->m_arrive;
+          to_run = i;
+        }
+      }
+    }
+  }
+
+  return to_run;
 }
 
 int sjf(proc_t * procs, const int numprocs, const int ts)
