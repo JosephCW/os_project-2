@@ -43,7 +43,7 @@ int sjf(proc_t * procs, const int numprocs, const int ts)
 
 int srt(proc_t * procs, const int numprocs, const int ts)
 {
-  printf("Inside SRT\n");
+//  printf("Inside SRT\n");
   // Loop through all processes
   // If it is not already completed
     // Get process with the lowest time
@@ -51,23 +51,23 @@ int srt(proc_t * procs, const int numprocs, const int ts)
   int to_run = -1;
   int lowest_time_remaining = -1;
   for (int i = 0; i < numprocs; i++) {
-	printf("\tOn Process: %d\n", i);
+//	printf("\tOn Process: %d\n", i);
     if (!isdone(&procs[i])) {
-	printf("\t\tProcess isn't complete!\n");
+//	printf("\t\tProcess isn't complete!\n");
       if (lowest_time_remaining == -1) {
-	printf("\t\t\tLowest time by default: %d\n", time_remaining(&procs[i]));
+//	printf("\t\t\tLowest time by default: %d\n", time_remaining(&procs[i]));
         to_run = i;
         lowest_time_remaining = time_remaining(&procs[i]);
       }
 
       if (time_remaining(&procs[i]) < lowest_time_remaining) {
-	printf("\t\t\tLowest time: %d\n", time_remaining(&procs[i]));
+//	printf("\t\t\tLowest time: %d\n", time_remaining(&procs[i]));
         to_run = i;
         lowest_time_remaining = time_remaining(&procs[i]);
       }
     }
   }
- printf("\tTo Run: %d\n", to_run);
+ printf("\tReturning the value: %d\n", to_run);
  return to_run;
 }
 
