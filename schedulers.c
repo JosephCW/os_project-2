@@ -110,19 +110,26 @@ int sjf(proc_t * procs, const int numprocs, const int ts)
 
 int srt(proc_t * procs, const int numprocs, const int ts)
 {
+  for (int i = 0; i < numprocs; i++) {
+    printf("Process %d \n\t isComplete %d\n\t timeburst %d\n\t burst/ burndown %d\n\t arrived %d\n", i, isdone(&procs[i]), (&procs[i])->m_timeburst, (&procs[i])->m_burst, (&procs[i])->m_arrive);
+  }
+
   int to_run = -1;
   int lowest_time_remaining = -1;
   // if on timestamp zero, we need to only pull from 
   // processes that have already arrived.
   if (ts == 0) {
+    printf("TS is Zero.\n");
     for (int i = 0; i < numprocs; i++) {
       if ((&procs[i])->m_arrive == 0) {
         // Default to first one.
         if (to_run == -1) {
+          printf("\tDefaulting to process %d in ts0\n", i);
           to_run = i;
           lowest_time_remaining = time_remaining(&procs[i]); 
         }
         if (time_remaining(&procs[i]) < lowest_time_remaining) {
+          printf("\tLowest time is process %d in ts0\n", i);
           to_run = i;
           lowest_time_remaining = time_remaining(&procs[i]);
         }
@@ -135,22 +142,26 @@ int srt(proc_t * procs, const int numprocs, const int ts)
 //  	  printf("\tOn Process: %d\n", i);
 //  	  printf("\t\tProcess remaining time: %d\n", time_remaining(&procs[i]));
       if (!isdone(&procs[i])) {
-//  	  printf("\t\tProcess isn't complete!\n");	
-        if (lowest_time_remaining == -1) {
-//	  printf("\t\t\tLowest time by default: %d\n", time_remaining(&procs[i]));
-          to_run = i;
-          lowest_time_remaining = time_remaining(&procs[i]);
-        }
 
-        if (time_remaining(&procs[i]) < lowest_time_remaining) {
-//	  printf("\t\t\tLowest time: %d\n", time_remaining(&procs[i]));
-          to_run = i;
-          lowest_time_remaining = time_remaining(&procs[i]);
+        // We only care about it if it has already arrived.
+        if ((&procs[i])->m_arrive <= ts) {
+//  	  printf("\t\tProcess isn't complete!\n");	
+          if (to_run == -1) {
+	    printf("\t\t\tLowest time by default: %d process: %d\n", time_remaining(&procs[i]), i);
+            to_run = i;
+            lowest_time_remaining = time_remaining(&procs[i]);
+          }
+
+          if (time_remaining(&procs[i]) < lowest_time_remaining) {
+	    printf("\t\t\tLowest time: %d on process: %d\n", time_remaining(&procs[i]), i);
+            to_run = i;
+            lowest_time_remaining = time_remaining(&procs[i]);
+          }
         }
       }
     }
   }
- //printf("\tReturning the value: %d\n", to_run);
+ printf("\tReturning the value: %d\n", to_run);
  return to_run;
 }
 
