@@ -45,7 +45,7 @@ int sjf(proc_t * procs, const int numprocs, const int ts)
 
   // If we're on step zero, we need to choose one that arrived at zero.
   if (ts == 0) {
-    printf("TS is Zero!");
+    //printf("TS is Zero!");
     for (int i = 0; i < numprocs; i++) {
       if ((&procs[i])->m_arrive == 0) {
         //printf("Process arrived at zero! %d\n", i);
