@@ -31,7 +31,7 @@ int main(int argc, char* argv[])
     run_scheduler(processes, numprocs, fcfs, "FCFS");
     run_scheduler(processes, numprocs, sjf, "SJF");
     run_scheduler(processes, numprocs, srt, "SRT");
-    //run_scheduler(processes, numprocs, rr, "RR");
+    run_scheduler(processes, numprocs, rr, "RR");
     run_scheduler(processes, numprocs, rand_sched, "RANDOM");
     //reset_all frees the memory the processes take (since they have a LL of nodes...)
     reset_all(processes, numprocs);
