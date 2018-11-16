@@ -31,59 +31,80 @@ int fcfs(proc_t * procs, const int numprocs, const int ts)
       }
     }
   }
-  printf("\tReturning the value: %d\n", to_run);
+//  printf("\tReturning the value: %d\n", to_run);
   return to_run;
 }
 
 int sjf(proc_t * procs, const int numprocs, const int ts)
 {
-//  printf("In SJF\n");
-  // if a jobs has already been started then that job is run first
-    // Can't use running due to multiple running at once (eloe's method)
-  // otherwise filter down to process with shortest burst time
-  // return this process #
+  // Notes in the docs are wrong for variables.
+      // m_timeburst - how many already done
+      // m_burst - how many needed to burst
+      // m_arrive - ts when it arrived
 
   int to_run = -1;
   int shortest_burst_time = -1;
+//  for (int i = 0; i < numprocs; i++) {
+//    printf("Process %d \n\t isComplete %d\n\t timeburst %d\n\t burst/ burndown %d\n\t arrived %d\n", i, isdone(&procs[i]), (&procs[i])->m_timeburst, (&procs[i])->m_burst, (&procs[i])->m_arrive);
+//  }
 
-  for (int i = 0; i < numprocs; i++) {
-//    printf("Process %d \n\tisComplete %d\n\t timeburst %d\n\t burndown %d\n", i, isdone(&procs[i]), (&procs[i])->m_timeburst, (&procs[i])->m_burst);
-  }
-
-  for (int i = 0; i < numprocs; i++) {
-    // see if there is a process that is currently running (not using isRunning)
-    // m_timeburst -  needs to burst
-    // m_burst - already bursted
-    if ((&procs[i])->m_burst != 0 && 
-          !isdone(&procs[i])) {
-      // If bursting has started but not completing
-//      printf("Process is not done and has already begun bursting: %d\n", i);
-      to_run = i;
-    } else {
-//      printf("Process %d is either done, or has not begun bursing\n", i);
+  // If we're on step zero, we need to choose one that arrived at zero.
+  if (ts == 0) {
+    printf("TS is Zero!");
+    for (int i = 0; i < numprocs; i++) {
+      if ((&procs[i])->m_arrive == 0) {
+	printf("Process arrived at zero! %d\n", i);
+        if (to_run == -1) {
+          printf("Process is set as active by default %d\n", i);
+          shortest_burst_time = (&procs[i])->m_timeburst;
+          to_run = i;
+        } else {
+          if ((&procs[i])->m_timeburst < shortest_burst_time) {
+            printf("Process is set as active %d\n", i);
+            shortest_burst_time = (&procs[i])->m_timeburst;
+            to_run = i;
+          }
+        }
+      }
     }
   }
-  // If there isn't a process that was already started,
+  
+  // If there ws a process already going, finish off that process.  
+  for (int i = 0; i < numprocs; i++) {
+      if ((&procs[i])->m_timeburst != 0 && 
+            !isdone(&procs[i])) {
+        // If bursting has started but not completing
+//        printf("Process is not done and has already begun bursting: %d\n", i);
+        to_run = i;
+      } else {
+        printf("Process %d is either done, or has not begun bursing\n", i);
+      }
+    }
+    
+
+  // If there isn't a process that was already started
+  // and we're not on timestamp zero,
   // pick a process based on which has the least remaining burst time.
   if (to_run == -1) {
+    // 
     for (int i = 0;i < numprocs; i++) {
       if (!isdone(&procs[i])) {
         // Default of -1
         if (to_run == -1) {
-//          printf("Defaulting to %d with remaining time %d\n", i, (&procs[i])->m_timeburst);
-          shortest_burst_time = (&procs[i])->m_timeburst;
+//          printf("Defaulting to %d with remaining time %d\n", i, (&procs[i])->m_burst);
+          shortest_burst_time = (&procs[i])->m_burst;
           to_run = i;
         }
         // non default, see if less than current.
-        if ((&procs[i])->m_timeburst < shortest_burst_time) {
-//          printf("New shortest time: process %d, burst remaining %d", i, (&procs[i])->m_timeburst);
-          shortest_burst_time = (&procs[i])->m_timeburst;
+        if ((&procs[i])->m_burst < shortest_burst_time) {
+//          printf("New shortest time: process %d, burst remaining %d", i, (&procs[i])->m_burst);
+          shortest_burst_time = (&procs[i])->m_burst;
           to_run = i;
         }
       }
     }
   }
-  printf("\tReturning the value: %d\n", to_run);
+//  printf("\tReturning the value: %d\n", to_run);
   return to_run;
 }
 
@@ -114,7 +135,7 @@ int srt(proc_t * procs, const int numprocs, const int ts)
       }
     }
   }
- printf("\tReturning the value: %d\n", to_run);
+ //printf("\tReturning the value: %d\n", to_run);
  return to_run;
 }
 
